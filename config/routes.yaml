@@ -1,5 +1,10 @@
 controllers:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Segment/Infrastructure/Controller
+        namespace: App\Segment\Infrastructure\Controller
     type: attribute
+
+segments:
+    path: /avail
+    controller: App\Segment\Infrastructure\Controller\GetSegmentCollectionController
+    methods: GET
