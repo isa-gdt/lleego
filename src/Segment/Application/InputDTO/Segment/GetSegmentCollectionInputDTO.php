@@ -14,9 +14,6 @@ class GetSegmentCollectionInputDTO
     private string $destination;
     private string $date;
 
-    /**
-     * @throws ValidationException
-     */
     public function __construct(array $data) 
     {
         $this->validate($data);
@@ -25,14 +22,21 @@ class GetSegmentCollectionInputDTO
         $this->date = $data['date'];
     }
 
+    /**
+     * @throws ValidationException
+     */
     private function validate(array $data): void
     {
         $validator = Validation::createValidator();
         $rules = new Assert\Collection([
-            'origin' => new Assert\NotBlank(),
-            'destination' => new Assert\NotBlank(),
-            'date' => new Assert\NotBlank(),
+            'fields' => [
+                'origin' => new Assert\NotBlank(),
+                'destination' => new Assert\NotBlank(),
+                'date' => new Assert\NotBlank(),
+            ],
+            'allowExtraFields' => true,
         ]);
+        
         $violations = $validator->validate($data, $rules);
 
         if(count($violations) > 0) {
@@ -40,6 +44,8 @@ class GetSegmentCollectionInputDTO
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }
+            var_dump($errorMessages);
+            die();
             throw new ValidationException($errorMessages);
         }
     }

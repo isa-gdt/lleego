@@ -20,7 +20,6 @@ class Segment
         private string $companyName,
     )
     {
-        
     }
 
     public function getOriginCode(): string
