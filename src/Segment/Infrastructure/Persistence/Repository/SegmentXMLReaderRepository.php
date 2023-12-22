@@ -30,6 +30,10 @@ class SegmentXMLReaderRepository implements SegmentRepositoryInterface
 
         $rawSegments = $this->xmlReaderService->read(self::URL, $xpath);
 
+        if (empty($rawSegments)) {
+            die('The data was not found.');
+        }
+
         return SegmentCollection::buildFromRaw($rawSegments);
     }
 }
