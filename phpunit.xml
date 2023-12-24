@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="tests/bootstrap.php"
+         convertDeprecationsToExceptions="false"
+>
+    <php>
+        <ini name="display_errors" value="1" />
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />
+    </php>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">./tests/Segment/Application</directory>
+            <directory suffix="Test.php">./tests/Segment/Domain</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory suffix="Test.php">./tests/Segment/Infrastructure</directory>
+        </testsuite>
+        <testsuite name="UnitAndIntegration">
+            <directory suffix="Test.php">./tests/Segment/Application</directory>
+            <directory suffix="Test.php">./tests/Segment/Domain</directory>
+            <directory suffix="Test.php">./tests/Segment/Infrastructure</directory>
+        </testsuite>
+    </testsuites>
+    <coverage pathCoverage="false">
+        <include>
+                <directory>src</directory>
+            </include>
+            <exclude>
+                <directory>./src/Segment/Infrastructure/Controller</directory>
+                <directory>./src/Segment/Infrastructure/Command</directory>
+            </exclude>
+        <report>
+            <clover outputFile="./tests/test-reports/html/clover.xml"/>
+            <html outputDirectory="./tests/test-reports/html" lowUpperBound="50" highLowerBound="95"/>
+            <php outputFile="./tests/test-reports/phpunit.cov"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+            <xml outputDirectory="./tests/test-reports/xml-coverage"/>
+        </report>
+    </coverage>
+    <logging>
+        <junit outputFile="./tests/test-reports/junit.xml"/>
+    </logging>
+</phpunit>

@@ -10,6 +10,14 @@ RUN apt update \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo_mysql
 
+RUN pecl install \
+        xdebug \
+        pcov
+
+RUN docker-php-ext-enable \
+        xdebug \
+        pcov
+
 # Set working directory
 WORKDIR /var/www/symfony_app
 
