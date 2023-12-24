@@ -3,8 +3,9 @@ controllers:
         path: ../src/Segment/Infrastructure/Controller
         namespace: App\Segment\Infrastructure\Controller
     type: attribute
+    prefix: /api #not working
 
 segments:
-    path: /avail
+    path: /api/avail
     controller: App\Segment\Infrastructure\Controller\GetSegmentCollectionController
     methods: GET

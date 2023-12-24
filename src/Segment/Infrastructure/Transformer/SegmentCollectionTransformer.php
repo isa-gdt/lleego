@@ -17,7 +17,7 @@ class SegmentCollectionTransformer
                 'originName' => $segment->getOriginName(),
                 'destinationCode' => $segment->getDestinationCode(),
                 'destinationName' => $segment->getDestinationName(),
-                'start' => $segment->getStart()->format('Y-m-d H:i:s'),
+                'start' => $segment->getStart()->format('Y-m-d H:i'),
                 'end' => $segment->getEnd()->format('Y-m-d'),
                 'transportNumber' => $segment->getTransportNumber(),
                 'companyCode' => $segment->getCompanyCode(),

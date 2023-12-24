@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Segment\Infrastructure\Command;
 
-use App\Segment\Application\GetSegmentCollectionUseCase;
+use App\Segment\Application\UseCase\GetSegmentCollectionUseCase;
 use App\Segment\Application\InputDTO\Segment\GetSegmentCollectionInputDTO;
 use App\Segment\Infrastructure\Transformer\SegmentCollectionTransformer;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -45,12 +45,12 @@ class GetSegmentCollectionCommand extends Command
             $dto->getDate()
         );
 
-        $response = $this->transformer->transform($segments);
-
-        if(empty($response)) {
-            $output->writeln('No se han encontrado segmentos');
+        if ($segments->isEmpty()){
+            $output->writeln('Not Segment Collection Found');
             return Command::FAILURE;
         }
+
+        $response = $this->transformer->transform($segments);
 
         $this->createTableOutput($output, $response);
         return Command::SUCCESS;

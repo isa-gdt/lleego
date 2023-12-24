@@ -7,6 +7,9 @@ namespace App\Segment\Infrastructure\Persistence\Repository;
 use App\Common\Infrastructure\Services\XMLReaderService;
 use App\Segment\Domain\Repository\SegmentRepositoryInterface;
 use App\Segment\Domain\SegmentCollection;
+use Exception;
+use RuntimeException;
+use SebastianBergmann\Environment\Runtime;
 
 class SegmentXMLReaderRepository implements SegmentRepositoryInterface
 {
@@ -20,7 +23,7 @@ class SegmentXMLReaderRepository implements SegmentRepositoryInterface
 
     public function getAll(string $origin, string $destination, string $date): SegmentCollection 
     {
-        //fixme: esto es un poco chapuza.
+        //fixme: mejorar esto, esto es un poco chapuza.
         $xpath = sprintf(
             "//ns:AirShoppingRS/ns:DataLists/ns:FlightSegmentList/ns:FlightSegment[ns:Departure/ns:AirportCode = '%s' and ns:Arrival/ns:AirportCode = '%s' and ns:Departure/ns:Date = '%s']",
             $origin,
@@ -28,12 +31,12 @@ class SegmentXMLReaderRepository implements SegmentRepositoryInterface
             $date
         );
 
-        $rawSegments = $this->xmlReaderService->read(self::URL, $xpath);
-
-        if (empty($rawSegments)) {
-            die('The data was not found.');
+        try {
+            $rawSegments = $this->xmlReaderService->read(self::URL, $xpath);
+        } catch (Exception $e) {
+            throw new RuntimeException('Error reading XML file');
         }
-
+      
         return SegmentCollection::buildFromRaw($rawSegments);
     }
 }

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Segment\Application;
+namespace App\Segment\Application\UseCase;
 
+use App\Segment\Domain\Exception\SegmentCollectionNotFoundException;
 use App\Segment\Domain\Repository\SegmentRepositoryInterface;
 use App\Segment\Domain\SegmentCollection;
 

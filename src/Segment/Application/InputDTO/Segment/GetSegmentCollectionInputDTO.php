@@ -36,7 +36,7 @@ class GetSegmentCollectionInputDTO
             ],
             'allowExtraFields' => true,
         ]);
-        
+
         $violations = $validator->validate($data, $rules);
 
         if(count($violations) > 0) {
@@ -44,8 +44,6 @@ class GetSegmentCollectionInputDTO
             foreach ($violations as $violation) {
                 $errorMessages[$violation->getPropertyPath()] = $violation->getMessage();
             }
-            var_dump($errorMessages);
-            die();
             throw new ValidationException($errorMessages);
         }
     }
