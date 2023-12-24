@@ -18,7 +18,8 @@
 ###< phpunit/phpunit ###
 
 # test and coverage files
-./tests/test-reports
+/tests/test-reports
+
 
 # Por defecto todos los fichero ocultos
 .*
